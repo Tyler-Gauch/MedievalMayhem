@@ -1,0 +1,784 @@
+fileFormatVersion: 2
+guid: 58c7b6f352e87f54d8e924903ec93d64
+timeCreated: 1477351245
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body_M_GeoRndr
+    100002: Bone
+    100004: Clavival_L
+    100006: Clavival_R
+    100008: Foot_L
+    100010: Foot_R
+    100012: FootControl_L
+    100014: FootControl_R
+    100016: FootIK_L
+    100018: FootIK_R
+    100020: FootRollControl_L
+    100022: FootRollControl_R
+    100024: GumsLower_M_GeoRndr
+    100026: GumsUpper_M_GeoRndr
+    100028: Hand_L
+    100030: Hand_R
+    100032: Head
+    100034: HeelRoll_L
+    100036: HeelRoll_R
+    100038: HipsControl
+    100040: InnerEye_L_GeoRndr
+    100042: InnerEye_R_GeoRndr
+    100044: KneeCtrl_L
+    100046: KneeCtrl_R
+    100048: LightPreset
+    100050: LowerArm_L
+    100052: LowerArm_R
+    100054: LowerIndex_L
+    100056: LowerIndex_R
+    100058: LowerLeg_L
+    100060: LowerLeg_R
+    100062: //RootNode
+    100064: MasterControl
+    100066: MiddleFingerLower_L
+    100068: MiddleFingerLower_R
+    100070: MiddleFingerMiddle_L
+    100072: MiddleFingerMiddle_R
+    100074: MiddleFingerUpper_L
+    100076: MiddleFingerUpper_R
+    100078: MiddleIndex_L
+    100080: MiddleIndex_R
+    100082: Neck
+    100084: OuterEye_L_GeoRndr
+    100086: OuterEye_R_GeoRndr
+    100088: PinkyFingerLower_L
+    100090: PinkyFingerLower_R
+    100092: PinkyFingerMiddle_L
+    100094: PinkyFingerMiddle_R
+    100096: PinkyFingerUpper_L
+    100098: PinkyFingerUpper_R
+    100100: RingFingerLower_L
+    100102: RingFingerLower_R
+    100104: RingFingerMiddle_L
+    100106: RingFingerMiddle_R
+    100108: RingFingerUpper_L
+    100110: RingFingerUpper_R
+    100112: Root
+    100114: Spine1
+    100116: Spine2
+    100118: TeethLower_M_GeoRndr
+    100120: TeethUpper_M_GeoRndr
+    100122: ToeRoll_L
+    100124: ToeRoll_R
+    100126: Toes_L
+    100128: Toes_R
+    100130: Tongue_M_GeoRndr
+    100132: UpperArm_L
+    100134: UpperArm_R
+    100136: UpperIndex_L
+    100138: UpperIndex_R
+    100140: UpperLeg_L
+    100142: UpperLeg_R
+    100144: UpperThumb_L
+    100146: UpperThumb_L_001
+    100148: UpperThumb_R
+    100150: UpperThumb_R_001
+    400000: Body_M_GeoRndr
+    400002: Bone
+    400004: Clavival_L
+    400006: Clavival_R
+    400008: Foot_L
+    400010: Foot_R
+    400012: FootControl_L
+    400014: FootControl_R
+    400016: FootIK_L
+    400018: FootIK_R
+    400020: FootRollControl_L
+    400022: FootRollControl_R
+    400024: GumsLower_M_GeoRndr
+    400026: GumsUpper_M_GeoRndr
+    400028: Hand_L
+    400030: Hand_R
+    400032: Head
+    400034: HeelRoll_L
+    400036: HeelRoll_R
+    400038: HipsControl
+    400040: InnerEye_L_GeoRndr
+    400042: InnerEye_R_GeoRndr
+    400044: KneeCtrl_L
+    400046: KneeCtrl_R
+    400048: LightPreset
+    400050: LowerArm_L
+    400052: LowerArm_R
+    400054: LowerIndex_L
+    400056: LowerIndex_R
+    400058: LowerLeg_L
+    400060: LowerLeg_R
+    400062: //RootNode
+    400064: MasterControl
+    400066: MiddleFingerLower_L
+    400068: MiddleFingerLower_R
+    400070: MiddleFingerMiddle_L
+    400072: MiddleFingerMiddle_R
+    400074: MiddleFingerUpper_L
+    400076: MiddleFingerUpper_R
+    400078: MiddleIndex_L
+    400080: MiddleIndex_R
+    400082: Neck
+    400084: OuterEye_L_GeoRndr
+    400086: OuterEye_R_GeoRndr
+    400088: PinkyFingerLower_L
+    400090: PinkyFingerLower_R
+    400092: PinkyFingerMiddle_L
+    400094: PinkyFingerMiddle_R
+    400096: PinkyFingerUpper_L
+    400098: PinkyFingerUpper_R
+    400100: RingFingerLower_L
+    400102: RingFingerLower_R
+    400104: RingFingerMiddle_L
+    400106: RingFingerMiddle_R
+    400108: RingFingerUpper_L
+    400110: RingFingerUpper_R
+    400112: Root
+    400114: Spine1
+    400116: Spine2
+    400118: TeethLower_M_GeoRndr
+    400120: TeethUpper_M_GeoRndr
+    400122: ToeRoll_L
+    400124: ToeRoll_R
+    400126: Toes_L
+    400128: Toes_R
+    400130: Tongue_M_GeoRndr
+    400132: UpperArm_L
+    400134: UpperArm_R
+    400136: UpperIndex_L
+    400138: UpperIndex_R
+    400140: UpperLeg_L
+    400142: UpperLeg_R
+    400144: UpperThumb_L
+    400146: UpperThumb_L_001
+    400148: UpperThumb_R
+    400150: UpperThumb_R_001
+    4300000: Body_M_GeoRndr
+    4300002: Tongue_M_GeoRndr
+    4300004: OuterEye_R_GeoRndr
+    4300006: GumsUpper_M_GeoRndr
+    4300008: InnerEye_R_GeoRndr
+    4300010: TeethUpper_M_GeoRndr
+    4300012: GumsLower_M_GeoRndr
+    4300014: OuterEye_L_GeoRndr
+    4300016: InnerEye_L_GeoRndr
+    4300018: TeethLower_M_GeoRndr
+    7400000: Idel1
+    7400002: Action
+    7400004: Idel1
+    7400006: running
+    7400008: walking
+    7400010: Walking
+    9500000: //RootNode
+    13700000: Body_M_GeoRndr
+    13700002: GumsLower_M_GeoRndr
+    13700004: GumsUpper_M_GeoRndr
+    13700006: InnerEye_L_GeoRndr
+    13700008: InnerEye_R_GeoRndr
+    13700010: OuterEye_L_GeoRndr
+    13700012: OuterEye_R_GeoRndr
+    13700014: TeethLower_M_GeoRndr
+    13700016: TeethUpper_M_GeoRndr
+    13700018: Tongue_M_GeoRndr
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idel1
+      takeName: Default Take
+      firstFrame: 4
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body_M_GeoRndr
+        weight: 1
+      - path: GumsLower_M_GeoRndr
+        weight: 1
+      - path: GumsUpper_M_GeoRndr
+        weight: 1
+      - path: InnerEye_L_GeoRndr
+        weight: 1
+      - path: InnerEye_R_GeoRndr
+        weight: 1
+      - path: OuterEye_L_GeoRndr
+        weight: 1
+      - path: OuterEye_R_GeoRndr
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/MasterControl
+        weight: 1
+      - path: Root/MasterControl/FootControl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/FootRollControl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L/ToeRoll_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L/ToeRoll_L/FootIK_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/KneeCtrl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/FootRollControl_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R/ToeRoll_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R/ToeRoll_R/FootIK_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/KneeCtrl_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L/MiddleIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L/MiddleIndex_L/UpperIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L/MiddleFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L/MiddleFingerMiddle_L/MiddleFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L/PinkyFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L/PinkyFingerMiddle_L/PinkyFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L/RingFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L/RingFingerMiddle_L/RingFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/UpperThumb_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/UpperThumb_L/UpperThumb_L_001
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R/MiddleIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R/MiddleIndex_R/UpperIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R/MiddleFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R/MiddleFingerMiddle_R/MiddleFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R/PinkyFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R/PinkyFingerMiddle_R/PinkyFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R/RingFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R/RingFingerMiddle_R/RingFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/UpperThumb_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/UpperThumb_R/UpperThumb_R_001
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Neck
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L/Foot_L/Toes_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R/Foot_R/Toes_R
+        weight: 1
+      - path: TeethLower_M_GeoRndr
+        weight: 1
+      - path: TeethUpper_M_GeoRndr
+        weight: 1
+      - path: Tongue_M_GeoRndr
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 4
+    - serializedVersion: 16
+      name: Action
+      takeName: Action
+      firstFrame: -1
+      lastFrame: 119
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body_M_GeoRndr
+        weight: 1
+      - path: GumsLower_M_GeoRndr
+        weight: 1
+      - path: GumsUpper_M_GeoRndr
+        weight: 1
+      - path: InnerEye_L_GeoRndr
+        weight: 1
+      - path: InnerEye_R_GeoRndr
+        weight: 1
+      - path: OuterEye_L_GeoRndr
+        weight: 1
+      - path: OuterEye_R_GeoRndr
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/MasterControl
+        weight: 1
+      - path: Root/MasterControl/FootControl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/FootRollControl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L/ToeRoll_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L/ToeRoll_L/FootIK_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/KneeCtrl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/FootRollControl_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R/ToeRoll_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R/ToeRoll_R/FootIK_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/KneeCtrl_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L/MiddleIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L/MiddleIndex_L/UpperIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L/MiddleFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L/MiddleFingerMiddle_L/MiddleFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L/PinkyFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L/PinkyFingerMiddle_L/PinkyFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L/RingFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L/RingFingerMiddle_L/RingFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/UpperThumb_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/UpperThumb_L/UpperThumb_L_001
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R/MiddleIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R/MiddleIndex_R/UpperIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R/MiddleFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R/MiddleFingerMiddle_R/MiddleFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R/PinkyFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R/PinkyFingerMiddle_R/PinkyFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R/RingFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R/RingFingerMiddle_R/RingFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/UpperThumb_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/UpperThumb_R/UpperThumb_R_001
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Neck
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L/Foot_L/Toes_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R/Foot_R/Toes_R
+        weight: 1
+      - path: TeethLower_M_GeoRndr
+        weight: 1
+      - path: TeethUpper_M_GeoRndr
+        weight: 1
+      - path: Tongue_M_GeoRndr
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walking
+      takeName: Action
+      firstFrame: 125
+      lastFrame: 205
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body_M_GeoRndr
+        weight: 1
+      - path: GumsLower_M_GeoRndr
+        weight: 1
+      - path: GumsUpper_M_GeoRndr
+        weight: 1
+      - path: InnerEye_L_GeoRndr
+        weight: 1
+      - path: InnerEye_R_GeoRndr
+        weight: 1
+      - path: OuterEye_L_GeoRndr
+        weight: 1
+      - path: OuterEye_R_GeoRndr
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/MasterControl
+        weight: 1
+      - path: Root/MasterControl/FootControl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/FootRollControl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L/ToeRoll_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/HeelRoll_L/ToeRoll_L/FootIK_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_L/KneeCtrl_L
+        weight: 1
+      - path: Root/MasterControl/FootControl_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/FootRollControl_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R/ToeRoll_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/HeelRoll_R/ToeRoll_R/FootIK_R
+        weight: 1
+      - path: Root/MasterControl/FootControl_R/KneeCtrl_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L/MiddleIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/LowerIndex_L/MiddleIndex_L/UpperIndex_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L/MiddleFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/MiddleFingerLower_L/MiddleFingerMiddle_L/MiddleFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L/PinkyFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/PinkyFingerLower_L/PinkyFingerMiddle_L/PinkyFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L/RingFingerMiddle_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/RingFingerLower_L/RingFingerMiddle_L/RingFingerUpper_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/UpperThumb_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_L/UpperArm_L/LowerArm_L/Hand_L/UpperThumb_L/UpperThumb_L_001
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R/MiddleIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/LowerIndex_R/MiddleIndex_R/UpperIndex_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R/MiddleFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/MiddleFingerLower_R/MiddleFingerMiddle_R/MiddleFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R/PinkyFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/PinkyFingerLower_R/PinkyFingerMiddle_R/PinkyFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R/RingFingerMiddle_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/RingFingerLower_R/RingFingerMiddle_R/RingFingerUpper_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/UpperThumb_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Clavival_R/UpperArm_R/LowerArm_R/Hand_R/UpperThumb_R/UpperThumb_R_001
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Neck
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L/Foot_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_L/LowerLeg_L/Foot_L/Toes_L
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R/Foot_R
+        weight: 1
+      - path: Root/MasterControl/HipsControl/Bone/UpperLeg_R/LowerLeg_R/Foot_R/Toes_R
+        weight: 1
+      - path: TeethLower_M_GeoRndr
+        weight: 1
+      - path: TeethUpper_M_GeoRndr
+        weight: 1
+      - path: Tongue_M_GeoRndr
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
