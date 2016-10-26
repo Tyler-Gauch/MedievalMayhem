@@ -30,7 +30,10 @@ namespace MedievalMayhem.Utilities {
 		public static string INPUT_LEFT_RIGHT = "Horizontal";
 		public static string INPUT_FORWARD_BACKWARD = "Vertical";
 
-
+		//tags
+		public static string PICKUP_TAG = "Pickup";
+		public static string RIGHT_HAND_TAG = "RightHand";
+		public static string LEFT_HAND_TAG = "LeftHand";
 	}
 }
 
