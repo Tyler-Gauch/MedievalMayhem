@@ -29,6 +29,8 @@ namespace MedievalMayhem.Utilities {
 		public static string INPUT_RUN = "Run";
 		public static string INPUT_LEFT_RIGHT = "Horizontal";
 		public static string INPUT_FORWARD_BACKWARD = "Vertical";
+		public static string INTERACT = "Interact"; // the InputManager Key
+		public static string DROP_WEAPON = "DropWeaponRight";
 
 		//tags
 		public static string PICKUP_TAG = "Pickup";
