@@ -4,10 +4,24 @@ using System.Collections;
 namespace MedievalMayhem.Weapons {
 	public class Weapon : MonoBehaviour {
 
+		public const int DEFAULT = 0;
+		public const int MELEE = 1;
+
 		[SerializeField] private int _damage;
 		[SerializeField] private GameObject _dropPrefab;
 
-		private bool _droppable;
+		protected bool _droppable;
+		protected int _weaponType;
+
+		public int WeaponType {
+			get { 
+				return this._weaponType;
+			}
+
+			set { 
+				this._weaponType = value;
+			}
+		}
 
 		protected virtual void Start() {
 			if (this._dropPrefab != null) {
@@ -15,6 +29,10 @@ namespace MedievalMayhem.Weapons {
 			} else {
 				this._droppable = false;
 			}
+		}
+
+		protected virtual void Update(){
+			//does nothing right now
 		}
 
 		public bool IsDroppable() {

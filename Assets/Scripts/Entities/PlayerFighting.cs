@@ -14,10 +14,10 @@ namespace MedievalMayhem.Player {
 		 */
 
 		[SerializeField] private Animator _playerAnimator;
-		[SerializeField] private GameObject _right_hand_weapon;
-		[SerializeField] private GameObject _left_hand_weapon;
-		[SerializeField] private GameObject _right_hand_weapon_hold;
-		[SerializeField] private GameObject _left_hand_weapon_hold;
+		[SerializeField] private GameObject _rightHandWeapon;
+		[SerializeField] private GameObject _leftHandWeapon;
+		[SerializeField] private GameObject _rightHandWeaponHold;
+		[SerializeField] private GameObject _leftHandWeaponHold;
 		[SerializeField] private Text _interactText;
 
 		private bool _hasWeapon;
@@ -26,19 +26,19 @@ namespace MedievalMayhem.Player {
 
 		public void Start() {
 
-			if (this._right_hand_weapon != null) {
+			if (this._rightHandWeapon != null) {
 				this._hasWeapon = true;
 
-				if (this._right_hand_weapon_hold.transform.childCount == 0) {
-					this.AddGear (this._right_hand_weapon, this._right_hand_weapon_hold);
+				if (this._rightHandWeaponHold.transform.childCount == 0) {
+					this._rightHandWeapon = this.AddGear (this._rightHandWeapon, this._rightHandWeaponHold);
 				}
 			}
 
-			if (this._left_hand_weapon != null) {
+			if (this._leftHandWeapon != null) {
 				this._hasWeapon = true;
 
-				if (this._left_hand_weapon_hold.transform.childCount == 0) {
-					this.AddGear (this._left_hand_weapon, this._left_hand_weapon_hold);
+				if (this._leftHandWeaponHold.transform.childCount == 0) {
+					this._leftHandWeapon = this.AddGear (this._leftHandWeapon, this._leftHandWeaponHold);
 				}
 			}
 
@@ -65,9 +65,8 @@ namespace MedievalMayhem.Player {
 				this.HandleAttack2 ();
 			}
 
-			//check if the weapons should be enabled or disabeled
-			bool input = Input.GetButton("Fire1");
-			this._right_hand_weapon.GetComponent<WeaponMelee>().hitZone.enabled = input;
+			HandleMeleeWeaponAttack (this._rightHandWeapon);
+			HandleMeleeWeaponAttack (this._leftHandWeapon);
 
 			if (dropWeapon && this._hasWeapon) {
 				this.HandleDropWeapon ();
@@ -93,13 +92,43 @@ namespace MedievalMayhem.Player {
 			}
 		}
 
+		private void HandleMeleeWeaponAttack(GameObject weapon) {
+			if (weapon == null || !this._hasWeapon) {
+				return;
+			} 
+			Weapon weaponScript = weapon.GetComponent<Weapon> ();
+
+			if (weaponScript == null || weaponScript.WeaponType != Weapon.MELEE) {
+				return;
+			}
+
+			MeleeWeapon meleeWeaponScript = weapon.GetComponent<MeleeWeapon> ();
+
+			//make sure we are doing an attacking animation
+			bool isAttacking = (this._playerAnimator.GetCurrentAnimatorStateInfo (1).IsName (GlobalUtilities.ATTACK_1_WEAPON)
+				|| this._playerAnimator.GetCurrentAnimatorStateInfo (1).IsName (GlobalUtilities.ATTACK_2_WEAPON));
+
+			//make sure that we are in the downward "attacking" swing of our animation set to 50% through the attack
+			//so that on the pull back we don't do any damage
+			bool isWithinAttackingTimeRange = (this._playerAnimator.GetCurrentAnimatorStateInfo (1).normalizedTime % 1) <= 0.5;
+
+			//check if the weapons should be enabled or disabeled
+			if (isAttacking && isWithinAttackingTimeRange) {
+				Debug.Log ("Enabling colliders for " + weapon);
+				meleeWeaponScript.HitZoneOn = true;
+			} else {
+				Debug.Log ("Disabling colliders for " + weapon);
+				meleeWeaponScript.HitZoneOn = false;
+			}
+		}
+
 		private void HandleDropWeapon() {
-			if (this._right_hand_weapon != null) {
-				this.DropWeapon (this._right_hand_weapon);
+			if (this._rightHandWeapon != null) {
+				this.DropWeapon (this._rightHandWeapon);
 			}	
 
-			if (this._left_hand_weapon != null) {
-				this.DropWeapon (this._left_hand_weapon);
+			if (this._leftHandWeapon != null) {
+				this.DropWeapon (this._leftHandWeapon);
 			}
 
 			this._hasWeapon = false;
@@ -170,10 +199,10 @@ namespace MedievalMayhem.Player {
 					this._isInteracting = true;
 					switch (pickUp.GetPickupType ()) {
 					case ItemPickup.RIGHT_HAND_WEAPON:
-						if (this._hasWeapon && this._right_hand_weapon != null) {
-							this.DropWeapon (this._right_hand_weapon);
+						if (this._hasWeapon && this._rightHandWeapon != null) {
+							this.DropWeapon (this._rightHandWeapon);
 						}
-						this._right_hand_weapon = this.AddGear (pickUp.GetPrefab (), this._right_hand_weapon_hold);
+						this._rightHandWeapon = this.AddGear (pickUp.GetPrefab (), this._rightHandWeaponHold);
 						this._hasWeapon = true;
 						GameObject.Destroy (hit.gameObject);
 						this.ClearInteract ();
@@ -181,7 +210,7 @@ namespace MedievalMayhem.Player {
 					case ItemPickup.RIGHT_HAND_SHIELD:
 						break;
 					case ItemPickup.LEFT_HAND_WEAPON:
-						this._left_hand_weapon = this.AddGear (pickUp.GetPrefab (), this._left_hand_weapon_hold);
+						this._leftHandWeapon = this.AddGear (pickUp.GetPrefab (), this._leftHandWeaponHold);
 						this._hasWeapon = true;
 						GameObject.Destroy (hit.gameObject);
 						this.ClearInteract ();
