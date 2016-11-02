@@ -23,6 +23,10 @@ namespace MedievalMayhem.Utilities {
 		public static string ATTACK_1_WEAPON = "SwingUpDown";
 		public static string DEFAULT_ANIM = "Default";
 
+		//animator event variables
+		public static int ANIM_EVENT_RIGHT_HAND = 1;
+		public static int ANIM_EVENT_LEFT_HAND  = 2;
+
 		//input
 		public static string ATTACK_1 = "Fire1";
 		public static string ATTACK_2 = "Fire2";

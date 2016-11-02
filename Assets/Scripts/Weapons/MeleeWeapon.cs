@@ -13,7 +13,6 @@ namespace MedievalMayhem.Weapons {
 				return this._hitZoneOn; 
 			}
 			set { 
-				Debug.Log ("Setting _hitZoneOn for " + this + " to " + value);
 				this._hitZoneOn = value;
 				this.UpdateHitZone();
 			}
@@ -32,12 +31,19 @@ namespace MedievalMayhem.Weapons {
 
 		protected override void Update() {
 			base.Update ();
-			Debug.Log ("HitZone for " + this + " is " + this._hitZone.enabled);
 			UpdateHitZone();
 		}
 
 		void OnTriggerEnter(Collider hit) {
-			Debug.Log ("HIT " + hit.tag);
+			this.HandleAttack (hit);
+		}
+
+		void OnCollisionEnter(Collision hit) {
+			this.HandleAttack (hit.collider);
+		}
+
+		private void HandleAttack(Collider hit) {
+			Debug.Log ("HIT: " + hit.tag);
 		}
 	}
 }

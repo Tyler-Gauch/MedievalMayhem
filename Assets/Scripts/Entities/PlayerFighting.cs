@@ -6,7 +6,7 @@ using MedievalMayhem.Weapons;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 
-namespace MedievalMayhem.Player {
+namespace MedievalMayhem.Entites {
 	public class PlayerFighting : MonoBehaviour {
 
 		/**
@@ -23,6 +23,8 @@ namespace MedievalMayhem.Player {
 		private bool _hasWeapon;
 		private bool _isInteracting = false;
 		private Collider _currentInteractionObject = null; // this makes it so that we can only interact with one object at a time
+		private GameObject _rightHandFist = null;
+		private GameObject _leftHandFist = null;
 
 		public void Start() {
 
@@ -30,6 +32,7 @@ namespace MedievalMayhem.Player {
 				this._hasWeapon = true;
 
 				if (this._rightHandWeaponHold.transform.childCount == 0) {
+					Debug.Log ("Not holding weapon");
 					this._rightHandWeapon = this.AddGear (this._rightHandWeapon, this._rightHandWeaponHold);
 				}
 			}
@@ -41,6 +44,9 @@ namespace MedievalMayhem.Player {
 					this._leftHandWeapon = this.AddGear (this._leftHandWeapon, this._leftHandWeaponHold);
 				}
 			}
+
+			_rightHandFist = GameObject.FindWithTag (GlobalUtilities.RIGHT_HAND_TAG);
+			_leftHandFist = GameObject.FindWithTag (GlobalUtilities.LEFT_HAND_TAG);
 
 
 			if (this._hasWeapon) {
@@ -64,9 +70,6 @@ namespace MedievalMayhem.Player {
 			} else if (attack2) {
 				this.HandleAttack2 ();
 			}
-
-			HandleMeleeWeaponAttack (this._rightHandWeapon);
-			HandleMeleeWeaponAttack (this._leftHandWeapon);
 
 			if (dropWeapon && this._hasWeapon) {
 				this.HandleDropWeapon ();
@@ -92,8 +95,42 @@ namespace MedievalMayhem.Player {
 			}
 		}
 
-		private void HandleMeleeWeaponAttack(GameObject weapon) {
-			if (weapon == null || !this._hasWeapon) {
+		public void TurnHitZoneOn(int side) {
+			
+			if (side == GlobalUtilities.ANIM_EVENT_RIGHT_HAND) {
+				if (this._hasWeapon) {
+					HandleMeleeWeaponAttack (this._rightHandWeapon, true);
+				} else {
+					HandleMeleeWeaponAttack (this._rightHandFist, true);
+				}
+			} else if (side == GlobalUtilities.ANIM_EVENT_LEFT_HAND) {
+				if (this._hasWeapon){
+					HandleMeleeWeaponAttack (this._leftHandWeapon, true);
+				} else {
+					HandleMeleeWeaponAttack (this._leftHandFist, true);
+				}
+			}
+		}
+
+		public void TurnHitZoneOff(int side) {
+			if (side == GlobalUtilities.ANIM_EVENT_RIGHT_HAND) {
+				if (this._hasWeapon) {
+					HandleMeleeWeaponAttack (this._rightHandWeapon, false);
+				} else {
+					HandleMeleeWeaponAttack (this._rightHandFist, false);
+				}
+			} else if (side == GlobalUtilities.ANIM_EVENT_LEFT_HAND) {
+				if (this._hasWeapon){
+					HandleMeleeWeaponAttack (this._leftHandWeapon, false);
+				} else {
+					HandleMeleeWeaponAttack (this._leftHandFist, false);
+				}
+			}
+		}
+
+		private void HandleMeleeWeaponAttack(GameObject weapon, bool enable) {
+			Debug.Log ("Turning hit zone to " + enable + " for " + weapon);
+			if (weapon == null) {
 				return;
 			} 
 			Weapon weaponScript = weapon.GetComponent<Weapon> ();
@@ -104,49 +141,37 @@ namespace MedievalMayhem.Player {
 
 			MeleeWeapon meleeWeaponScript = weapon.GetComponent<MeleeWeapon> ();
 
-			//make sure we are doing an attacking animation
-			bool isAttacking = (this._playerAnimator.GetCurrentAnimatorStateInfo (1).IsName (GlobalUtilities.ATTACK_1_WEAPON)
-				|| this._playerAnimator.GetCurrentAnimatorStateInfo (1).IsName (GlobalUtilities.ATTACK_2_WEAPON));
-
-			//make sure that we are in the downward "attacking" swing of our animation set to 50% through the attack
-			//so that on the pull back we don't do any damage
-			bool isWithinAttackingTimeRange = (this._playerAnimator.GetCurrentAnimatorStateInfo (1).normalizedTime % 1) <= 0.5;
-
 			//check if the weapons should be enabled or disabeled
-			if (isAttacking && isWithinAttackingTimeRange) {
-				Debug.Log ("Enabling colliders for " + weapon);
-				meleeWeaponScript.HitZoneOn = true;
-			} else {
-				Debug.Log ("Disabling colliders for " + weapon);
-				meleeWeaponScript.HitZoneOn = false;
-			}
+			meleeWeaponScript.HitZoneOn = enable;
 		}
 
 		private void HandleDropWeapon() {
 			if (this._rightHandWeapon != null) {
-				this.DropWeapon (this._rightHandWeapon);
+				this._hasWeapon = this.DropWeapon (this._rightHandWeapon);
 			}	
 
 			if (this._leftHandWeapon != null) {
-				this.DropWeapon (this._leftHandWeapon);
+				this._hasWeapon = this.DropWeapon (this._leftHandWeapon);
 			}
-
-			this._hasWeapon = false;
 		}
 
-		private void DropWeapon(GameObject heldWeapon) {
+		private bool DropWeapon(GameObject heldWeapon) {
 			Weapon weapon = heldWeapon.GetComponent<Weapon> ();
 			if (weapon.IsDroppable ()) {
 				GameObject dropped = (GameObject)Instantiate (
-					weapon.GetDropPrefab(), 
-					transform.position + transform.forward + transform.up,
-					Quaternion.identity
-				);
+					                     weapon.GetDropPrefab (), 
+					                     transform.position + transform.forward + transform.up,
+					                     Quaternion.identity
+				                     );
+				Debug.Log ("Destroying: " + heldWeapon);
 				GameObject.Destroy (heldWeapon);
 				dropped.GetComponent<Rigidbody> ().AddForce (transform.forward, ForceMode.Impulse);
-			}
-		}
+				return false; //dropped weapon
+			} 
 
+			return true; //still have weapon
+		}
+			
 		private void HandleMoving() {
 			// handle moving animations here
 			// Read input
