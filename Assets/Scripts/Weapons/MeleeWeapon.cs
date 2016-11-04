@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MedievalMayhem.Utilities;
+using MedievalMayhem.Entites;
 
 namespace MedievalMayhem.Weapons { 
 	[RequireComponent(typeof(BoxCollider))]
-	public class MeleeWeapon : Weapon
+	public class MeleeWeapon : BaseWeapon
 	{
 		private BoxCollider _hitZone;
 		private bool _hitZoneOn = false;
@@ -26,7 +28,7 @@ namespace MedievalMayhem.Weapons {
 			base.Start ();
 			this._hitZone = this.GetComponent<BoxCollider> ();
 			this.UpdateHitZone ();
-			this._weaponType = Weapon.MELEE;
+			this._weaponType = BaseWeapon.MELEE;
 		}
 
 		protected override void Update() {
@@ -35,15 +37,22 @@ namespace MedievalMayhem.Weapons {
 		}
 
 		void OnTriggerEnter(Collider hit) {
-			this.HandleAttack (hit);
+			this.HandleAttackSuccess (hit);
 		}
 
 		void OnCollisionEnter(Collision hit) {
-			this.HandleAttack (hit.collider);
+			this.HandleAttackSuccess (hit.collider);
 		}
 
-		private void HandleAttack(Collider hit) {
-			Debug.Log ("HIT: " + hit.tag);
+		//run when we had a successful hit on something
+		protected override void HandleAttackSuccess (Collider hit) {
+			base.HandleAttackSuccess (hit);
+			//check if the object has a HealthSystem
+			HealthSystem health = hit.gameObject.GetComponent<HealthSystem>();
+
+			if (health != null) {
+				health.Damage (this._damage);
+			}
 		}
 	}
 }

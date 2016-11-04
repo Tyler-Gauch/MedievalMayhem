@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MedievalMayhem.Utilities;
+using MedievalMayhem.Utilities.Event;
 using MedievalMayhem.Items;
 using MedievalMayhem.Weapons;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 
 namespace MedievalMayhem.Entites {
-	public class PlayerFighting : MonoBehaviour {
+	public class PlayerFighting : BaseEntity {
 
 		/**
 		 *  _ variables denote private variables
 		 */
-
 		[SerializeField] private Animator _playerAnimator;
 		[SerializeField] private GameObject _rightHandWeapon;
 		[SerializeField] private GameObject _leftHandWeapon;
@@ -26,13 +26,47 @@ namespace MedievalMayhem.Entites {
 		private GameObject _rightHandFist = null;
 		private GameObject _leftHandFist = null;
 
-		public void Start() {
+		void Awake() {
+			GetComponentInChildren<EventTrigger> ().eventNames = new string[]{
+				this.gameObjectName + "TurnOnRightHitzones", 
+				this.gameObjectName + "TurnOffRightHitzones",
+				this.gameObjectName + "TurnOnLeftHitzones",
+				this.gameObjectName + "TurnOffLeftHitzones",
+				this.gameObjectName + "TurnOnAllHitzones",
+				this.gameObjectName + "TurnOffAllHitzones"
+			};
+		}
+
+		protected override void OnEnable() {
+			base.OnEnable ();
+			EventManager.StartListening (this.gameObjectName + "TurnOnRightHitzones", TurnHitZoneOnRight);
+			EventManager.StartListening (this.gameObjectName + "TurnOffRightHitzones", TurnHitZoneOffRight);
+			EventManager.StartListening (this.gameObjectName + "TurnOnLeftHitzones", TurnHitZoneOnLeft);
+			EventManager.StartListening (this.gameObjectName + "TurnOffLeftHitzones", TurnHitZoneOffLeft);
+			EventManager.StartListening (this.gameObjectName + "TurnOnAllHitzones", TurnHitZoneOnLeft);
+			EventManager.StartListening (this.gameObjectName + "TurnOffAllHitzones", TurnHitZoneOffLeft);
+			EventManager.StartListening (this.gameObjectName + "Dead", Dead);
+		}
+
+		protected override void OnDisable() {
+			base.OnDisable ();
+			EventManager.StopListening (this.gameObjectName + "TurnOnRightHitzones", TurnHitZoneOnRight);
+			EventManager.StopListening (this.gameObjectName + "TurnOffRightHitzones", TurnHitZoneOffRight);
+			EventManager.StopListening (this.gameObjectName + "TurnOnLeftHitzones", TurnHitZoneOnLeft);
+			EventManager.StopListening (this.gameObjectName + "TurnOffLeftHitzones", TurnHitZoneOffLeft);
+			EventManager.StopListening (this.gameObjectName + "TurnOnAllHitzones", TurnHitZoneOnAll);
+			EventManager.StopListening (this.gameObjectName + "TurnOffAllHitzones", TurnHitZoneOffAll);
+			EventManager.StopListening (this.gameObjectName + "Dead", Dead);
+		}
+
+		protected override void Start() {
+
+			base.Start ();
 
 			if (this._rightHandWeapon != null) {
 				this._hasWeapon = true;
 
 				if (this._rightHandWeaponHold.transform.childCount == 0) {
-					Debug.Log ("Not holding weapon");
 					this._rightHandWeapon = this.AddGear (this._rightHandWeapon, this._rightHandWeaponHold);
 				}
 			}
@@ -58,7 +92,7 @@ namespace MedievalMayhem.Entites {
 
 		}
 
-		public void Update() {
+		protected override void Update() {
 
 			// Check if we are trying to attack
 			bool attack1 = CrossPlatformInputManager.GetButtonDown(GlobalUtilities.ATTACK_1);
@@ -95,47 +129,55 @@ namespace MedievalMayhem.Entites {
 			}
 		}
 
-		public void TurnHitZoneOn(int side) {
-			
-			if (side == GlobalUtilities.ANIM_EVENT_RIGHT_HAND) {
-				if (this._hasWeapon) {
-					HandleMeleeWeaponAttack (this._rightHandWeapon, true);
-				} else {
-					HandleMeleeWeaponAttack (this._rightHandFist, true);
-				}
-			} else if (side == GlobalUtilities.ANIM_EVENT_LEFT_HAND) {
-				if (this._hasWeapon){
-					HandleMeleeWeaponAttack (this._leftHandWeapon, true);
-				} else {
-					HandleMeleeWeaponAttack (this._leftHandFist, true);
-				}
+		public void TurnHitZoneOnAll() {
+			TurnHitZoneOnLeft ();
+			TurnHitZoneOnRight();
+		}
+
+		public void TurnHitZoneOffAll() {
+			TurnHitZoneOffLeft ();
+			TurnHitZoneOffRight ();
+		}
+
+		public void TurnHitZoneOnRight() {
+			if (this._hasWeapon) {
+				HandleMeleeWeaponAttack (this._rightHandWeapon, true);
+			} else {
+				HandleMeleeWeaponAttack (this._rightHandFist, true);
 			}
 		}
 
-		public void TurnHitZoneOff(int side) {
-			if (side == GlobalUtilities.ANIM_EVENT_RIGHT_HAND) {
-				if (this._hasWeapon) {
-					HandleMeleeWeaponAttack (this._rightHandWeapon, false);
-				} else {
-					HandleMeleeWeaponAttack (this._rightHandFist, false);
-				}
-			} else if (side == GlobalUtilities.ANIM_EVENT_LEFT_HAND) {
-				if (this._hasWeapon){
-					HandleMeleeWeaponAttack (this._leftHandWeapon, false);
-				} else {
-					HandleMeleeWeaponAttack (this._leftHandFist, false);
-				}
+		public void TurnHitZoneOnLeft() {
+			if (this._hasWeapon){
+				HandleMeleeWeaponAttack (this._leftHandWeapon, true);
+			} else {
+				HandleMeleeWeaponAttack (this._leftHandFist, true);
+			}
+		}
+
+		public void TurnHitZoneOffRight() {
+			if (this._hasWeapon) {
+				HandleMeleeWeaponAttack (this._rightHandWeapon, false);
+			} else {
+				HandleMeleeWeaponAttack (this._rightHandFist, false);
+			}
+		}
+
+		public void TurnHitZoneOffLeft() {
+			if (this._hasWeapon){
+				HandleMeleeWeaponAttack (this._leftHandWeapon, false);
+			} else {
+				HandleMeleeWeaponAttack (this._leftHandFist, false);
 			}
 		}
 
 		private void HandleMeleeWeaponAttack(GameObject weapon, bool enable) {
-			Debug.Log ("Turning hit zone to " + enable + " for " + weapon);
 			if (weapon == null) {
 				return;
 			} 
-			Weapon weaponScript = weapon.GetComponent<Weapon> ();
+			BaseWeapon weaponScript = weapon.GetComponent<BaseWeapon> ();
 
-			if (weaponScript == null || weaponScript.WeaponType != Weapon.MELEE) {
+			if (weaponScript == null || weaponScript.WeaponType != BaseWeapon.MELEE) {
 				return;
 			}
 
@@ -156,14 +198,13 @@ namespace MedievalMayhem.Entites {
 		}
 
 		private bool DropWeapon(GameObject heldWeapon) {
-			Weapon weapon = heldWeapon.GetComponent<Weapon> ();
+			BaseWeapon weapon = heldWeapon.GetComponent<BaseWeapon> ();
 			if (weapon.IsDroppable ()) {
 				GameObject dropped = (GameObject)Instantiate (
 					                     weapon.GetDropPrefab (), 
 					                     transform.position + transform.forward + transform.up,
 					                     Quaternion.identity
 				                     );
-				Debug.Log ("Destroying: " + heldWeapon);
 				GameObject.Destroy (heldWeapon);
 				dropped.GetComponent<Rigidbody> ().AddForce (transform.forward, ForceMode.Impulse);
 				return false; //dropped weapon
@@ -220,7 +261,7 @@ namespace MedievalMayhem.Entites {
 				//we want to first check the type
 				ItemPickup pickUp = hit.GetComponent<ItemPickup>();
 
-				if (interact || !pickUp.RequiresInteraction()) {
+				if ((interact && !this._isInteracting) || !pickUp.RequiresInteraction()) {
 					this._isInteracting = true;
 					switch (pickUp.GetPickupType ()) {
 					case ItemPickup.RIGHT_HAND_WEAPON:
@@ -285,5 +326,10 @@ namespace MedievalMayhem.Entites {
 			this._interactText.text = "";
 		}
 
+		//this gets called when the player is dead
+		protected override void Dead() {
+			base.Dead ();
+			Debug.Log (this.gameObjectName + " Is Dead!");
+		}
 	}
 }

@@ -834,18 +834,18 @@ ModelImporter:
       curves: []
       events:
       - time: 0.27586207
-        functionName: TurnHitZoneOn
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
       - time: 0.46743295
-        functionName: TurnHitZoneOff
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
+        intParameter: 3
         messageOptions: 0
       transformMask:
       - path: 
@@ -1042,14 +1042,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.27586207
-        functionName: TurnHitZoneOn
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       - time: 0.46743295
-        functionName: TurnHitZoneOff
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -1444,14 +1444,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.3218391
-        functionName: TurnHitZoneOn
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       - time: 0.66283524
-        functionName: TurnHitZoneOff
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -1652,14 +1652,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.37931034
-        functionName: TurnHitZoneOn
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 1
+        intParameter: 0
         messageOptions: 0
       - time: 0.65134096
-        functionName: TurnHitZoneOff
+        functionName: TriggerEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

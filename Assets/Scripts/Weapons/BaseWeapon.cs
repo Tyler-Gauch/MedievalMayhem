@@ -3,17 +3,19 @@ using System.Collections;
 
 namespace MedievalMayhem.Weapons {
 	[RequireComponent(typeof(Rigidbody))]
-	public class Weapon : MonoBehaviour {
+	public class BaseWeapon : BaseGameObject {
 
 		public const int DEFAULT = 0;
 		public const int MELEE = 1;
 
-		[SerializeField] private int _damage;
-		[SerializeField] private GameObject _dropPrefab;
+		[SerializeField] protected int _damage;
+		[SerializeField] protected GameObject _dropPrefab;
 
 		protected bool _droppable;
 		protected int _weaponType;
 		protected Rigidbody _rigidBody;
+
+		private const string WEAPON_TAG = "Weapon";
 
 		public int WeaponType {
 			get { 
@@ -25,8 +27,8 @@ namespace MedievalMayhem.Weapons {
 			}
 		}
 
-		protected virtual void Start() {
-			Debug.Log (this + " Drop Prefab: " + this._dropPrefab);
+		protected override void Start() {
+			base.Start ();
 
 			if (this._dropPrefab != null) {
 				this._droppable = true;
@@ -39,16 +41,21 @@ namespace MedievalMayhem.Weapons {
 			this._rigidBody.isKinematic = true; 
 		}
 
-		protected virtual void Update(){
-			//does nothing right now
-		}
-
 		public bool IsDroppable() {
 			return this._droppable;
 		}
 
 		public GameObject GetDropPrefab() {
 			return this._dropPrefab;
+		}
+
+		protected override string GetBaseEventTagName ()
+		{
+			return WEAPON_TAG;
+		}
+
+		protected virtual void HandleAttackSuccess(Collider hit) {
+			Debug.Log ("We hit " + hit.tag);
 		}
 	}
 }
