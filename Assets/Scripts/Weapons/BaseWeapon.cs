@@ -9,11 +9,22 @@ namespace MedievalMayhem.Weapons {
 
 		public const int DEFAULT = 0;
 		public const int MELEE = 1;
+		public const int RANGED = 2;
 
-		public Vector3 throwRotation = new Vector3(0,-400,0);
-		[SerializeField] protected int _damage = 10;
-		[SerializeField] protected int _throwingDamage = 0;
+		public bool isTwoHanded = false;
+		[SerializeField] protected float _damage = 10;
+		public float Damage {
+			get { 
+				return this._damage;
+			}
+
+			set { 
+				this._damage = value;
+			}
+		}
 		[SerializeField] protected GameObject _dropPrefab;
+
+
 		[SerializeField] protected bool _isThrowable = false;
 		public bool IsThrowable {
 			get { 
@@ -24,13 +35,12 @@ namespace MedievalMayhem.Weapons {
 				this._isThrowable = value;
 			}
 		}
+		[SerializeField] protected GameObject _throwPrefab;
+
 
 		protected bool _droppable;
 		protected int _weaponType;
 		protected Rigidbody _rigidBody;
-		protected bool _isBeingThrown = false;  //whether or not the weapon is currently being thrown
-		protected bool _handleThrowStop = false;
-		protected Collision _throwHit;
 		protected BoxCollider _mainCollisionCollider;
 		protected bool _isBeingHeld = false;
 		public bool IsBeingHeld {
@@ -55,6 +65,16 @@ namespace MedievalMayhem.Weapons {
 			}
 		}
 
+		protected override void Awake() {
+			base.Awake ();
+
+			this._rigidBody = GetComponent<Rigidbody> ();
+			this._rigidBody.useGravity = false;
+			this._rigidBody.isKinematic = true; 
+
+			this._mainCollisionCollider = GetComponent<BoxCollider> ();
+		}
+
 		protected override void Start() {
 			base.Start ();
 
@@ -64,11 +84,11 @@ namespace MedievalMayhem.Weapons {
 				this._droppable = false;
 			}
 
-			this._rigidBody = GetComponent<Rigidbody> ();
-			this._rigidBody.useGravity = false;
-			this._rigidBody.isKinematic = true; 
-
-			this._mainCollisionCollider = GetComponent<BoxCollider> ();
+			if (this._isThrowable && this._throwPrefab == null) {
+				throw new UnityException ("Throwable weapon created without throwable prefab (" + this.gameObject.name + ", " + this.gameObjectName + ")");
+			} else if (this._isThrowable && this._throwPrefab.GetComponent<ProjectileWeapon> () == null) {
+				throw new UnityException ("Throwable weapon's prefab does not contain ProjectileWeapon Script (" + this.gameObject.name + ", " + this.gameObjectName + ")");
+			}
 		}
 
 		protected override void Update() {
@@ -78,20 +98,9 @@ namespace MedievalMayhem.Weapons {
 			if (this._mainCollisionCollider != null) { 
 				this._mainCollisionCollider.enabled = !this._isBeingHeld;
 			}
-
-			if (this._handleThrowStop && this._rigidBody.IsSleeping ()) {
-				HandleThrowHit (this._throwHit, transform.position);
-				this._throwHit = null;
-				this._handleThrowStop = false;
-			}
 		}
 
 		protected virtual void FixedUpdate() {
-			//if the weapon was thrown make it spin
-			if (this._isBeingThrown) {
-				Quaternion deltaRotation = Quaternion.Euler (this.throwRotation * Time.deltaTime);
-				this._rigidBody.MoveRotation (this._rigidBody.rotation * deltaRotation);
-			}
 		}
 
 		public bool IsDroppable() {
@@ -111,26 +120,9 @@ namespace MedievalMayhem.Weapons {
 		}
 
 		protected virtual void OnCollisionEnter(Collision hit) {
-			if (this._isBeingThrown && hit.collider.tag != GlobalUtilities.LOCAL_PLAYER_TAG) {
-				this._isBeingThrown = false;
-				if (hit.collider.CompareTag (GlobalUtilities.ENEMY_TAG)) {
-					HandleThrowHit (hit, hit.contacts [0].point);
-				} else {
-					this._handleThrowStop = true;
-					this._throwHit = hit;
-					this._rigidBody.drag = 0;
-					this._rigidBody.angularDrag = 1;
-				}				
-			}
 		}
 
-		protected virtual void HandleThrowHit(Collision hit, Vector3 endPosition) {
-			GameObject dropped = this.Drop (false, endPosition, transform.rotation);
-			dropped.transform.parent = hit.gameObject.transform;
-			HandleAttackSuccess (hit.collider, this._throwingDamage);
-		}
-
-		protected virtual void HandleAttackSuccess(Collider hit, int damage) {
+		protected virtual void HandleAttackSuccess(Collider hit, float damage) {
 			//check if the object has a HealthSystem
 			HealthSystem health = hit.gameObject.GetComponent<HealthSystem>();
 
@@ -164,24 +156,21 @@ namespace MedievalMayhem.Weapons {
 			if (!this._isThrowable) {
 				return;
 			} 
-
-			this._isBeingThrown = true;
 			this._isBeingHeld = false;
 
-			Vector3 force = location.forward * 20;
-			transform.parent = null;
-			this.gameObject.layer = GlobalUtilities.DEFAULT_LAYER;
-			transform.position = location.position + location.forward;
-			if (this._rigidBody == null) {
-				this._rigidBody = GetComponent<Rigidbody> ();
-			}
-			this._rigidBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-			this._rigidBody.useGravity = true;
-			this._rigidBody.isKinematic = false;
-			this._mainCollisionCollider.isTrigger = false;
-			this._rigidBody.AddForce (force, ForceMode.Impulse);
-			//this._rigidBody.angularVelocity = new Vector3 (2, 0, 0);
+			// instantiate the throwable
+			GameObject prefab = (GameObject)Instantiate (
+				this._throwPrefab,
+				transform.parent.position + (transform.parent.forward * 2),
+				transform.parent.rotation
+			);
+			prefab.transform.localPosition = Camera.main.transform.position + (Camera.main.transform.forward * 3);
+			prefab.transform.localRotation = Camera.main.transform.rotation * this._throwPrefab.transform.rotation;
+			prefab.transform.localScale = this._throwPrefab.transform.localScale;
 
+			ProjectileWeapon projectile = prefab.GetComponent<ProjectileWeapon> ();
+			projectile.Project (location.forward);
+			GameObject.Destroy (this.gameObject);
 		}
 	}
 }

@@ -71,7 +71,7 @@ namespace MedievalMayhem.Entites.Player {
 					this._rightHandWeapon = this.AddGear (this._rightHandWeapon, this._rightHandWeaponHold);
 				}
 
-				this.GetRightHandWeapon ().IsBeingHeld = true;
+				this.GetRightHandWeaponScript ().IsBeingHeld = true;
 			}
 
 			if (this._leftHandWeapon != null) {
@@ -81,7 +81,7 @@ namespace MedievalMayhem.Entites.Player {
 					this._leftHandWeapon = this.AddGear (this._leftHandWeapon, this._leftHandWeaponHold);
 				}
 
-				this.GetLeftHandWeapon ().IsBeingHeld = true;
+				this.GetLeftHandWeaponScript ().IsBeingHeld = true;
 			}
 
 			if (this._hasWeapon) {
@@ -290,23 +290,36 @@ namespace MedievalMayhem.Entites.Player {
 
 				if ((interact && !this._isInteracting)) {
 					this._isInteracting = true;
+					GameObject currentWeapon = this.CurrentActiveWeapon ();
+
 					switch (pickUp.GetPickupType ()) {
 					case ItemPickup.RIGHT_HAND_WEAPON:
-						if (this._hasWeapon && this._rightHandWeapon != null) {
-							this.DropWeapon (this._rightHandWeapon);
+
+						if (this._hasWeapon && currentWeapon != null) {
+							BaseWeapon weaponScript = currentWeapon.GetComponent<BaseWeapon> ();
+							weaponScript.Drop ();
 						}
+
 						this._rightHandWeapon = pickUp.PickUp (this._rightHandWeaponHold);
 						this._hasWeapon = true;
-						this.GetRightHandWeapon ().IsBeingHeld = true;
+						this.GetRightHandWeaponScript ().IsBeingHeld = true;
 						GlobalUtilities.ClearInteractText ();
+
 						break;
 					case ItemPickup.RIGHT_HAND_SHIELD:
 						break;
 					case ItemPickup.LEFT_HAND_WEAPON:
+
+						if (this._hasWeapon && currentWeapon != null) {
+							BaseWeapon weaponScript = currentWeapon.GetComponent<BaseWeapon> ();
+							weaponScript.Drop ();
+						}
+
 						this._leftHandWeapon = pickUp.PickUp(this._leftHandWeaponHold);
 						this._hasWeapon = true;
-						this.GetLeftHandWeapon ().IsBeingHeld = true;
+						this.GetLeftHandWeaponScript ().IsBeingHeld = true;
 						GlobalUtilities.ClearInteractText ();
+
 						break;
 					case ItemPickup.LEFT_HAND_SHIELD:
 						break;
@@ -348,7 +361,7 @@ namespace MedievalMayhem.Entites.Player {
 			return child;
 		}
 
-		public BaseWeapon GetRightHandWeapon() {
+		public BaseWeapon GetRightHandWeaponScript() {
 			if (this._rightHandWeapon != null) {
 				return this._rightHandWeapon.GetComponent<BaseWeapon> ();
 			}
@@ -356,12 +369,30 @@ namespace MedievalMayhem.Entites.Player {
 			return null;
 		}
 
-		public BaseWeapon GetLeftHandWeapon() {
+		public BaseWeapon GetLeftHandWeaponScript() {
 			if (this._leftHandWeapon != null) {
 				return this._leftHandWeapon.GetComponent<BaseWeapon> ();
 			}
 
 			return null;
+		}
+
+		public GameObject CurrentActiveWeapon() {
+			if (this._rightHandWeapon != null) {
+				return this._rightHandWeapon;
+			} else if (this._leftHandWeapon != null) {
+				return this._leftHandWeapon;
+			} else {
+				return null;
+			}
+		}
+
+		public GameObject GetRightHandWeapon() {
+			return this._rightHandWeapon;
+		}
+
+		public GameObject GetLeftHandWeapon() {
+			return this._leftHandWeapon;
 		}
 	}
 }

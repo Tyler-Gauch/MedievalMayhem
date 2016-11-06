@@ -26,11 +26,7 @@ namespace MedievalMayhem.Weapons {
 
 		protected override void OnTriggerEnter(Collider hit) {
 			base.OnTriggerEnter (hit);
-			//throwing is handled on collision in the base class
-			//but may sometimes get caught here
-			if (!this._isBeingThrown) {
-				this.HandleAttackSuccess (hit, this._damage);
-			}
+			this.HandleAttackSuccess (hit, this._damage);
 		}
 
 		protected override void OnCollisionEnter(Collision hit) {
@@ -38,7 +34,7 @@ namespace MedievalMayhem.Weapons {
 		}
 
 		//run when we had a successful hit on something
-		protected override void HandleAttackSuccess (Collider hit, int damage) {
+		protected override void HandleAttackSuccess (Collider hit, float damage) {
 			//handles damaging
 			base.HandleAttackSuccess (hit, damage);
 

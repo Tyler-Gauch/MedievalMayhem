@@ -36,6 +36,7 @@ namespace MedievalMayhem.Utilities {
 		public const string INTERACT 						= "Interact"; // the InputManager Key
 		public const string DROP_WEAPON 					= "DropWeaponRight";
 		public const string THROW_WEAPON 					= "ThrowWeapon";
+		public const string RELOAD 							= "Reload";
 
 		//tags
 		public const string PICKUP_TAG 						= "Pickup";

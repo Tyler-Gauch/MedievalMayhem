@@ -5,7 +5,7 @@ using MedievalMayhem.Entites;
 namespace MedievalMayhem.Items {
 	public class HealthPickup : ItemPickup
 	{
-		public int healingCapacity = 10;
+		public float healingCapacity = 10;
 
 		protected override void Start() {
 			this.SetPickupType (ItemPickup.POWERUP);

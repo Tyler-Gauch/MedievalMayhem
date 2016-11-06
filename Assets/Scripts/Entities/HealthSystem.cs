@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MedievalMayhem.Utilities.Event;
+using UnityEngine.UI;
 
 namespace MedievalMayhem.Entites {
 	public class HealthSystem : MonoBehaviour
 	{
 		public int maxHealth = 100;
-		private int _currentHealth;
+		private float _currentHealth;
+		public Image healthBar;
 
 		//this is the event that will be called when the entity is killed
 		private string _deadEvent = null;
@@ -27,14 +29,22 @@ namespace MedievalMayhem.Entites {
 			this._currentHealth = this.maxHealth;
 		}
 
+		private void ShowHealthBar() {
+			if (this.healthBar != null) {
+				this.healthBar.fillAmount = (this._currentHealth / this.maxHealth);
+			}
+		}
+
 		void Update() {
 			if (this.IsDead () && !this._deadTriggered) {
 				this._deadTriggered = true;
 				EventManager.TriggerEvent (this._deadEvent);
+			} else {
+				ShowHealthBar ();
 			}
 		}
 
-		public void Damage(int damage) {
+		public void Damage(float damage) {
 			this._currentHealth = Mathf.Max(this._currentHealth - damage, 0);
 			Debug.Log ("Damaged(" + damage + ") " + this._currentHealth);
 		}
@@ -43,7 +53,7 @@ namespace MedievalMayhem.Entites {
 			return (this._currentHealth == 0);
 		}
 
-		public bool Heal(int health) {
+		public bool Heal(float health) {
 			if (this._currentHealth < this.maxHealth) {
 				this._currentHealth = Mathf.Min (this._currentHealth + health, this.maxHealth);
 				return true;

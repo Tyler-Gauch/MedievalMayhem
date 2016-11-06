@@ -12,6 +12,17 @@ namespace MedievalMayhem.Utilities {
 		//names that can be used create specific event names
 		public string gameObjectName;
 
+		public bool hasLifeTime = false;
+
+		[Tooltip("The time, in seconds, for the object to expire")]
+		public float timeToLive = 10;
+
+		protected float _timeAlive = 0;
+
+		protected virtual void Awake() {
+			//first funciton claled
+		}
+
 		//events can be registered here.
 		protected virtual void OnEnable() {
 			BaseGameObject.gameObjectNumber++;
@@ -29,7 +40,14 @@ namespace MedievalMayhem.Utilities {
 		}
 
 		protected virtual void Update() {
-			//method stub to allow for proper overriding
+
+			if (this.hasLifeTime) {
+				this._timeAlive += Time.deltaTime;
+
+				if (this._timeAlive >= this.timeToLive) {
+					GameObject.Destroy (this.gameObject);
+				}
+			}
 		}
 
 		public virtual string GetGameObjectName (){
