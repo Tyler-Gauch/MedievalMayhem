@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MedievalMayhem.Utilities.Event;
+using MedievalMayhem.Utilities;
 
 namespace MedievalMayhem.Entites {
 	[RequireComponent(typeof(HealthSystem))]
@@ -30,7 +31,7 @@ namespace MedievalMayhem.Entites {
 
 		//overrides the name so that all entites have
 		//a name that starts with Entity unless changed in the editor
-		protected override string GetBaseEventTagName() {
+		public override string GetGameObjectName() {
 			return "Entity";
 		}
 

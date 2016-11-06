@@ -7,7 +7,7 @@ using MedievalMayhem.Weapons;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.UI;
 
-namespace MedievalMayhem.Entites {
+namespace MedievalMayhem.Entites.Player {
 	public class PlayerFighting : BaseEntity {
 
 		/**
@@ -18,7 +18,6 @@ namespace MedievalMayhem.Entites {
 		[SerializeField] private GameObject _leftHandWeapon;
 		[SerializeField] private GameObject _rightHandWeaponHold;
 		[SerializeField] private GameObject _leftHandWeaponHold;
-		[SerializeField] private Text _interactText;
 
 		private bool _hasWeapon;
 		private bool _isInteracting = false;
@@ -26,19 +25,9 @@ namespace MedievalMayhem.Entites {
 		private GameObject _rightHandFist = null;
 		private GameObject _leftHandFist = null;
 
-		void Awake() {
-			GetComponentInChildren<EventTrigger> ().eventNames = new string[]{
-				this.gameObjectName + "TurnOnRightHitzones", 
-				this.gameObjectName + "TurnOffRightHitzones",
-				this.gameObjectName + "TurnOnLeftHitzones",
-				this.gameObjectName + "TurnOffLeftHitzones",
-				this.gameObjectName + "TurnOnAllHitzones",
-				this.gameObjectName + "TurnOffAllHitzones"
-			};
-		}
-
 		protected override void OnEnable() {
 			base.OnEnable ();
+			Debug.Log ("Enabled " + this.gameObjectName);
 			EventManager.StartListening (this.gameObjectName + "TurnOnRightHitzones", TurnHitZoneOnRight);
 			EventManager.StartListening (this.gameObjectName + "TurnOffRightHitzones", TurnHitZoneOffRight);
 			EventManager.StartListening (this.gameObjectName + "TurnOnLeftHitzones", TurnHitZoneOnLeft);
@@ -63,12 +52,26 @@ namespace MedievalMayhem.Entites {
 
 			base.Start ();
 
+			GetComponentInChildren<EventTrigger> ().eventNames = new string[]{
+				this.gameObjectName + "TurnOnRightHitzones", 
+				this.gameObjectName + "TurnOffRightHitzones",
+				this.gameObjectName + "TurnOnLeftHitzones",
+				this.gameObjectName + "TurnOffLeftHitzones",
+				this.gameObjectName + "TurnOnAllHitzones",
+				this.gameObjectName + "TurnOffAllHitzones"
+			};
+
+			_rightHandFist = GameObject.FindWithTag (GlobalUtilities.RIGHT_HAND_TAG);
+			_leftHandFist = GameObject.FindWithTag (GlobalUtilities.LEFT_HAND_TAG);
+
 			if (this._rightHandWeapon != null) {
 				this._hasWeapon = true;
 
 				if (this._rightHandWeaponHold.transform.childCount == 0) {
 					this._rightHandWeapon = this.AddGear (this._rightHandWeapon, this._rightHandWeaponHold);
 				}
+
+				this.GetRightHandWeapon ().IsBeingHeld = true;
 			}
 
 			if (this._leftHandWeapon != null) {
@@ -77,11 +80,9 @@ namespace MedievalMayhem.Entites {
 				if (this._leftHandWeaponHold.transform.childCount == 0) {
 					this._leftHandWeapon = this.AddGear (this._leftHandWeapon, this._leftHandWeaponHold);
 				}
+
+				this.GetLeftHandWeapon ().IsBeingHeld = true;
 			}
-
-			_rightHandFist = GameObject.FindWithTag (GlobalUtilities.RIGHT_HAND_TAG);
-			_leftHandFist = GameObject.FindWithTag (GlobalUtilities.LEFT_HAND_TAG);
-
 
 			if (this._hasWeapon) {
 				this._playerAnimator.Play (GlobalUtilities.IDLE_WITH_WEAPON);
@@ -98,6 +99,7 @@ namespace MedievalMayhem.Entites {
 			bool attack1 = CrossPlatformInputManager.GetButtonDown(GlobalUtilities.ATTACK_1);
 			bool attack2 = CrossPlatformInputManager.GetButtonDown (GlobalUtilities.ATTACK_2);
 			bool dropWeapon = CrossPlatformInputManager.GetButtonDown (GlobalUtilities.DROP_WEAPON);
+			bool throwWeapon = CrossPlatformInputManager.GetButtonUp (GlobalUtilities.THROW_WEAPON);
 
 			if (attack1) {
 				this.HandleAttack1 ();
@@ -107,6 +109,10 @@ namespace MedievalMayhem.Entites {
 
 			if (dropWeapon && this._hasWeapon) {
 				this.HandleDropWeapon ();
+			}
+
+			if (throwWeapon && this._hasWeapon) {
+				this.HandleThrowWeapon ();
 			}
 
 			// this is for moving animations
@@ -171,6 +177,24 @@ namespace MedievalMayhem.Entites {
 			}
 		}
 
+		public void HandleThrowWeapon() {
+			//only allow throwing one weapon at a time
+			if (this._rightHandWeapon != null) {
+				ThrowWeapon (ref this._rightHandWeapon);
+			} else if (this._leftHandWeapon != null) {
+				ThrowWeapon (ref this._leftHandWeapon);
+			}
+		} 
+
+		public void ThrowWeapon(ref GameObject throwable) {
+			BaseWeapon weapon = throwable.GetComponent<BaseWeapon> ();
+			if (weapon.IsThrowable) {
+				weapon.Throw (this.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().Camera.transform);
+				throwable = null;
+				this._hasWeapon = (this._rightHandWeapon != null || this._leftHandWeapon != null);
+			} 
+		}
+
 		private void HandleMeleeWeaponAttack(GameObject weapon, bool enable) {
 			if (weapon == null) {
 				return;
@@ -184,7 +208,11 @@ namespace MedievalMayhem.Entites {
 			MeleeWeapon meleeWeaponScript = weapon.GetComponent<MeleeWeapon> ();
 
 			//check if the weapons should be enabled or disabeled
-			meleeWeaponScript.HitZoneOn = enable;
+			if (enable) {
+				meleeWeaponScript.EnableHitZone ();
+			} else {
+				meleeWeaponScript.DisableHitZone ();
+			}
 		}
 
 		private void HandleDropWeapon() {
@@ -200,13 +228,7 @@ namespace MedievalMayhem.Entites {
 		private bool DropWeapon(GameObject heldWeapon) {
 			BaseWeapon weapon = heldWeapon.GetComponent<BaseWeapon> ();
 			if (weapon.IsDroppable ()) {
-				GameObject dropped = (GameObject)Instantiate (
-					                     weapon.GetDropPrefab (), 
-					                     transform.position + transform.forward + transform.up,
-					                     Quaternion.identity
-				                     );
-				GameObject.Destroy (heldWeapon);
-				dropped.GetComponent<Rigidbody> ().AddForce (transform.forward, ForceMode.Impulse);
+				weapon.Drop ();
 				return false; //dropped weapon
 			} 
 
@@ -261,31 +283,32 @@ namespace MedievalMayhem.Entites {
 				//we want to first check the type
 				ItemPickup pickUp = hit.GetComponent<ItemPickup>();
 
-				if ((interact && !this._isInteracting) || !pickUp.RequiresInteraction()) {
+				//if the pickup doesn't require interaction the pickup script handles using the item
+				if (!pickUp.RequiresInteraction ()) {
+					return;
+				}
+
+				if ((interact && !this._isInteracting)) {
 					this._isInteracting = true;
 					switch (pickUp.GetPickupType ()) {
 					case ItemPickup.RIGHT_HAND_WEAPON:
 						if (this._hasWeapon && this._rightHandWeapon != null) {
 							this.DropWeapon (this._rightHandWeapon);
 						}
-						this._rightHandWeapon = this.AddGear (pickUp.GetPrefab (), this._rightHandWeaponHold);
+						this._rightHandWeapon = pickUp.PickUp (this._rightHandWeaponHold);
 						this._hasWeapon = true;
-						GameObject.Destroy (hit.gameObject);
-						this.ClearInteract ();
+						this.GetRightHandWeapon ().IsBeingHeld = true;
+						GlobalUtilities.ClearInteractText ();
 						break;
 					case ItemPickup.RIGHT_HAND_SHIELD:
 						break;
 					case ItemPickup.LEFT_HAND_WEAPON:
-						this._leftHandWeapon = this.AddGear (pickUp.GetPrefab (), this._leftHandWeaponHold);
+						this._leftHandWeapon = pickUp.PickUp(this._leftHandWeaponHold);
 						this._hasWeapon = true;
-						GameObject.Destroy (hit.gameObject);
-						this.ClearInteract ();
+						this.GetLeftHandWeapon ().IsBeingHeld = true;
+						GlobalUtilities.ClearInteractText ();
 						break;
 					case ItemPickup.LEFT_HAND_SHIELD:
-						break;
-					case ItemPickup.POWERUP:
-						break;
-					case ItemPickup.UNKNOWN:
 						break;
 					default:
 						break;
@@ -293,21 +316,28 @@ namespace MedievalMayhem.Entites {
 
 					this._isInteracting = false;
 				} else {
-					this.ShowButtonInteract("X", pickUp.GetIdentifier());
+					GlobalUtilities.ShowButtonInteract("X", pickUp.GetIdentifier());
 				}
 			}
 		}
 
 		public void OnTriggerExit(Collider hit) {
-			this.ClearInteract ();
+			GlobalUtilities.ClearInteractText ();
 			if (this._currentInteractionObject == hit) {
 				this._currentInteractionObject = null;
 			}
 		}
+			
+		//this gets called when the player is dead
+		protected override void Dead() {
+			base.Dead ();
+			Debug.Log (this.gameObjectName + " Is Dead!");
+		}
 
-		private GameObject AddGear(GameObject prefab, GameObject parent) {
+		//means the player picked up the item
+		public GameObject AddGear(GameObject prefab, GameObject parent) {
 			GameObject child = (GameObject)Instantiate (
-				prefab, 
+				prefab,
 				prefab.transform.position,
 				prefab.transform.rotation
 			);
@@ -318,18 +348,20 @@ namespace MedievalMayhem.Entites {
 			return child;
 		}
 
-		private void ShowButtonInteract(string button, string obj) {
-			this._interactText.text = "Press '" + button + "' for " + obj;
+		public BaseWeapon GetRightHandWeapon() {
+			if (this._rightHandWeapon != null) {
+				return this._rightHandWeapon.GetComponent<BaseWeapon> ();
+			}
+
+			return null;
 		}
 
-		private void ClearInteract() {
-			this._interactText.text = "";
-		}
+		public BaseWeapon GetLeftHandWeapon() {
+			if (this._leftHandWeapon != null) {
+				return this._leftHandWeapon.GetComponent<BaseWeapon> ();
+			}
 
-		//this gets called when the player is dead
-		protected override void Dead() {
-			base.Dead ();
-			Debug.Log (this.gameObjectName + " Is Dead!");
+			return null;
 		}
 	}
 }

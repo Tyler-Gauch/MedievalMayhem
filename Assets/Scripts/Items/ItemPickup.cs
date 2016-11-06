@@ -6,7 +6,7 @@ namespace MedievalMayhem.Items {
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(BoxCollider))] //used for collision
 	[RequireComponent(typeof(SphereCollider))] //used for pickup trigger
-	public class ItemPickup : MonoBehaviour {
+	public class ItemPickup : BaseGameObject {
 
 		public const int UNKNOWN			= -1; //this is incase we forget to change the type
 		public const int RIGHT_HAND_WEAPON 	= 0;
@@ -21,10 +21,10 @@ namespace MedievalMayhem.Items {
 		[SerializeField] private string _identifier;
 
 		// Use this for initialization
-		void Start () {
+		protected override void Start () {
 			if (this._pickupType == UNKNOWN) {
 				throw new UnityException ("Pick up item created with no type");
-			} else if (this._prefab == null) {
+			} else if (this._prefab == null && this._pickupType != UNKNOWN && this._pickupType != POWERUP) {
 				throw new UnityException ("Pick up item created with no prefab");
 			} else {
 				tag = GlobalUtilities.PICKUP_TAG;
@@ -63,6 +63,35 @@ namespace MedievalMayhem.Items {
 
 		public string GetIdentifier() {
 			return this._identifier;
+		}
+
+		void OnTriggerStay(Collider hit) {
+			if (hit.CompareTag (GlobalUtilities.LOCAL_PLAYER_TAG)) {
+				//if it requires player interaction let the player script
+				//handle that
+				if (this._requiresInteraction) {
+					return;
+				}
+
+				this.PickUp (hit.gameObject);
+			}
+		}
+
+		//means the player picked up the item
+		public virtual GameObject PickUp(GameObject parent) {
+			GameObject child = (GameObject)Instantiate (
+				this._prefab,
+				this._prefab.transform.position,
+				this._prefab.transform.rotation
+			);
+			child.transform.parent = parent.transform;
+			child.transform.localPosition = this._prefab.transform.position;
+			child.transform.localRotation = this._prefab.transform.rotation;
+			child.transform.localScale = this._prefab.transform.localScale;
+
+			GameObject.Destroy (this.gameObject);
+
+			return child;
 		}
 	}
 }

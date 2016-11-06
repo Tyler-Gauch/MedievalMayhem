@@ -2,57 +2,62 @@
 using System.Collections;
 using MedievalMayhem.Utilities;
 using MedievalMayhem.Entites;
+using MedievalMayhem.Items;
 
 namespace MedievalMayhem.Weapons { 
-	[RequireComponent(typeof(BoxCollider))]
 	public class MeleeWeapon : BaseWeapon
 	{
-		private BoxCollider _hitZone;
-		private bool _hitZoneOn = false;
-
-		public bool HitZoneOn { 
-			get { 
-				return this._hitZoneOn; 
-			}
-			set { 
-				this._hitZoneOn = value;
-				this.UpdateHitZone();
-			}
-		}
-
-		private void UpdateHitZone() {
-			this._hitZone.enabled = this._hitZoneOn;
-		}
+		private MeleeWeaponHitZone _hitZone;
 
 		protected override void Start() {
 			base.Start ();
-			this._hitZone = this.GetComponent<BoxCollider> ();
-			this.UpdateHitZone ();
+			this._hitZone = GetComponentInChildren<MeleeWeaponHitZone> ();
+
+			if (this._hitZone == null) {
+				throw new UnityException ("MeleeWeapon Created without a MeleeWeaponHitZone");
+			}
+
 			this._weaponType = BaseWeapon.MELEE;
 		}
 
 		protected override void Update() {
 			base.Update ();
-			UpdateHitZone();
 		}
 
-		void OnTriggerEnter(Collider hit) {
-			this.HandleAttackSuccess (hit);
+		protected override void OnTriggerEnter(Collider hit) {
+			base.OnTriggerEnter (hit);
+			//throwing is handled on collision in the base class
+			//but may sometimes get caught here
+			if (!this._isBeingThrown) {
+				this.HandleAttackSuccess (hit, this._damage);
+			}
 		}
 
-		void OnCollisionEnter(Collision hit) {
-			this.HandleAttackSuccess (hit.collider);
+		protected override void OnCollisionEnter(Collision hit) {
+			base.OnCollisionEnter (hit);
 		}
 
 		//run when we had a successful hit on something
-		protected override void HandleAttackSuccess (Collider hit) {
-			base.HandleAttackSuccess (hit);
-			//check if the object has a HealthSystem
-			HealthSystem health = hit.gameObject.GetComponent<HealthSystem>();
+		protected override void HandleAttackSuccess (Collider hit, int damage) {
+			//handles damaging
+			base.HandleAttackSuccess (hit, damage);
 
-			if (health != null) {
-				health.Damage (this._damage);
+		}
+
+		public override GameObject Drop(bool withForce = true, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion)) {
+			if (this.IsDroppable ()) {
+				DisableHitZone ();
+				return base.Drop (withForce, position, rotation);
 			}
+			return null;
+		}
+
+		public void EnableHitZone() {
+			this._hitZone.HitZoneOn = true;
+		}
+
+		public void DisableHitZone () {
+			this._hitZone.HitZoneOn = false;
 		}
 	}
 }
